@@ -26,7 +26,13 @@ app.get('/', async (req, res) => {
       <h1>Hello from slow content</h1>
       <p>Main content</p>
       <p>Main content</p>
-      <lol-suspense match="^tmpl-">
+      <lol-suspense match="^widget1">
+        <p>Loading...</p>
+      </lol-suspense>
+      <lol-suspense match="^widget2">
+        <p>Loading...</p>
+      </lol-suspense>
+      <lol-suspense match="^widget3">
         <p>Loading...</p>
       </lol-suspense>
       <p>Main content</p>
@@ -34,13 +40,24 @@ app.get('/', async (req, res) => {
       <script src="/build/index.js"></script>
   `);
 
-  for (let i = 0; i < 10; i++) {
-    await new Promise(r => setTimeout(r, 1000));
-
-    res.write(html`<template id="tmpl-${i}">
-      <p>Chunked content ${i + 1}/10</p>
-    </template>`);
-  }
+  // Load slow dependencies
+  await Promise.all([
+    new Promise(r => setTimeout(r, 1000)).then(() => {
+      res.write(html`<template id="widget1">
+        <p>Widget 1 loaded</p>
+      </template>`);
+    }),
+    new Promise(r => setTimeout(r, 2000)).then(() => {
+      res.write(html`<template id="widget2">
+        <p>Widget 2 loaded</p>
+      </template>`);
+    }),
+    new Promise(r => setTimeout(r, 3000)).then(() => {
+      res.write(html`<template id="widget3">
+        <p>Widget 3 loaded</p>
+      </template>`);
+    }),
+  ]);
 
   res.write(html`
      </body>
