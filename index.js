@@ -2,6 +2,7 @@ const express = require('express');
 
 const app = express();
 
+// For cosmetic purpose
 function html(strings, ...keys) {
   const results = [];
   const s = Array.from(strings);
@@ -25,7 +26,9 @@ app.get('/', async (req, res) => {
       <h1>Hello from slow content</h1>
       <p>Main content</p>
       <p>Main content</p>
-      <lol-suspense match="^tmpl-"></lol-suspense>
+      <lol-suspense match="^tmpl-">
+        <p>Loading...</p>
+      </lol-suspense>
       <p>Main content</p>
       <p>End of contentful part</p>
       <script src="/build/index.js"></script>
