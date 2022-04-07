@@ -1,4 +1,51 @@
 /* Add CSS styles here! */
-body {
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  display: grid;
+  height: 100vh;
+
+  grid-template-rows: auto 1fr auto;
+
+  background-color: rebeccapurple;
+  color: white;
   font-family: sans-serif;
+}
+
+.content {
+  padding: 16px;
+}
+
+.box {
+  max-width: 800px;
+  margin: auto;
+}
+
+.header, .footer {
+  padding: 16px;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+}
+
+.loading {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 3px solid rgba(255,255,255,.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { -webkit-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+  to { -webkit-transform: rotate(360deg); }
 }
